@@ -43,6 +43,7 @@ app.post("/todos", function(req, res){
  Todo.create(formData, function(err, newTodo){
     if(err){
       res.render("new");
+      throw err;
     } else {
         res.json(newTodo);
     }
