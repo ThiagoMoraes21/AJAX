@@ -3,7 +3,8 @@ app     = express(),
 mongoose = require("mongoose"),
 bodyParser = require("body-parser"),
 expressSanitizer = require("express-sanitizer"),
-methodOverride = require('method-override');
+methodOverride = require('method-override'),
+port = process.env.PORT || 3000;
 
 mongoose.connect("mongodb://localhost/todo_app");
 app.use(express.static('public'));
@@ -43,7 +44,7 @@ app.post("/todos", function(req, res){
     if(err){
       res.render("new");
     } else {
-        res.redirect("/todos");
+        res.json(newTodo);
     }
   });
 });
@@ -80,12 +81,7 @@ app.delete("/todos/:id", function(req, res){
  }); 
 });
 
-
-app.listen(3000, function() {
-  console.log('Server running on port 3000');
+app.listen(port, process.env.IP, function() {
+  console.log('Server running on port: ' + port);
 });
 
-// // Uncomment the three lines of code below and comment out or remove lines 84 - 86 if using cloud9
-// app.listen(process.env.PORT, process.env.IP, function(){
-//     console.log("The server has started!");
-// });
