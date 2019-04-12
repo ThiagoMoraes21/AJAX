@@ -4,7 +4,7 @@ mongoose = require("mongoose"),
 bodyParser = require("body-parser"),
 expressSanitizer = require("express-sanitizer"),
 methodOverride = require('method-override'),
-port = process.env.PORT || 3000;
+port = process.env.PORT || 7500;
 
 mongoose.connect("mongodb://localhost/todo_app");
 app.use(express.static('public'));
@@ -19,6 +19,8 @@ var todoSchema = new mongoose.Schema({
 
 var Todo = mongoose.model("Todo", todoSchema);
 
+
+// index router
 app.get("/", function(req, res){
   res.redirect("/todos");
 });
@@ -33,6 +35,7 @@ app.get("/todos", function(req, res){
   })
 });
 
+// Create
 app.get("/todos/new", function(req, res){
  res.render("new"); 
 });
@@ -50,6 +53,8 @@ app.post("/todos", function(req, res){
   });
 });
 
+
+// Update
 app.get("/todos/:id/edit", function(req, res){
  Todo.findById(req.params.id, function(err, todo){
    if(err){
@@ -71,6 +76,7 @@ app.put("/todos/:id", function(req, res){
  });
 });
 
+// delete
 app.delete("/todos/:id", function(req, res){
  Todo.findById(req.params.id, function(err, todo){
    if(err){

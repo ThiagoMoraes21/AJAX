@@ -26,3 +26,4 @@ $('#new-todo-form').submit(function(e) {
         $('#new-todo-form').find('.form-control').val('');
     });
 });
+
